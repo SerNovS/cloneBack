@@ -1,7 +1,11 @@
 package com.tesis.ubb.tesis.security.controller;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -17,8 +21,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import com.tesis.ubb.tesis.models.Cliente;
 import com.tesis.ubb.tesis.security.dto.JwtDto;
 import com.tesis.ubb.tesis.security.dto.LoginUsuario;
+import com.tesis.ubb.tesis.security.dto.Mensaje;
 import com.tesis.ubb.tesis.security.dto.NuevoUsuario;
 import com.tesis.ubb.tesis.security.enums.RolNombre;
 import com.tesis.ubb.tesis.security.jwt.JwtProvider;
@@ -49,32 +55,54 @@ public class AuthController {
 
     @PostMapping("/nuevo")
     public ResponseEntity<?> nuevo(@Valid @RequestBody NuevoUsuario nuevoUsuario, BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        if (usuarioService.existsByNombreUsuario(nuevoUsuario.getNombreUsuario()))
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        if (usuarioService.existsByEmail(nuevoUsuario.getEmail()))
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+
+        Map<String, Object> response = new HashMap<>();
+
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity(new Mensaje("campos mal puestos o email inválido"), HttpStatus.BAD_REQUEST);
+        }
+
+        if (usuarioService.existsByNombreUsuario(nuevoUsuario.getNombreUsuario())){
+            return new ResponseEntity(new Mensaje("nombre de usuario ya existe"), HttpStatus.BAD_REQUEST);
+        }
+            
+
+        if (usuarioService.existsByEmail(nuevoUsuario.getEmail())){
+            return new ResponseEntity(new Mensaje("ese email ya existe"), HttpStatus.BAD_REQUEST);
+        }
+            
+
         Usuario usuario = new Usuario(nuevoUsuario.getNombre(), nuevoUsuario.getNombreUsuario(),
                 nuevoUsuario.getEmail(),
                 passwordEncoder.encode(nuevoUsuario.getPassword()));
         Set<Rol> roles = new HashSet<>();
         roles.add(rolService.getByRolNombre(RolNombre.ROLE_CLIENTE).get());
-        if (nuevoUsuario.getRoles().contains("admin")){
+        if (nuevoUsuario.getRoles().contains("admin")) {
             roles.add(rolService.getByRolNombre(RolNombre.ROLE_ADMIN).get());
         }
-        if (nuevoUsuario.getRoles().contains("trabajador")){
+        if (nuevoUsuario.getRoles().contains("trabajador")) {
             roles.add(rolService.getByRolNombre(RolNombre.ROLE_TRABAJADOR).get());
         }
         usuario.setRoles(roles);
         usuarioService.save(usuario);
-        return new ResponseEntity(HttpStatus.CREATED);
+        return new ResponseEntity(new Mensaje("usuario guardado"), HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
     public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginUsuario loginUsuario, BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        
+        Map<String, Object> response = new HashMap<>();
+
+        if (bindingResult.hasErrors()){
+            List<String> errors = bindingResult.getFieldErrors().stream().map(err -> {
+                return "El campo '" + err.getField() + "' " + err.getDefaultMessage();
+            }).collect(Collectors.toList());
+            response.put("errors", errors);
+            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+        }
+        if (bindingResult.hasErrors()){
+            return new ResponseEntity(new Mensaje("campos mal puestos"), HttpStatus.BAD_REQUEST);
+        }
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginUsuario.getNombreUsuario(), loginUsuario.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);

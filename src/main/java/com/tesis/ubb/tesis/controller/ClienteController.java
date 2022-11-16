@@ -27,8 +27,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tesis.ubb.tesis.models.Cliente;
-import com.tesis.ubb.tesis.security.models.Usuario;
-import com.tesis.ubb.tesis.security.service.UsuarioService;
 import com.tesis.ubb.tesis.service.ClienteService;
 
 @RestController
