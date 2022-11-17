@@ -91,15 +91,15 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginUsuario loginUsuario, BindingResult bindingResult) {
         
-        Map<String, Object> response = new HashMap<>();
+        // Map<String, Object> response = new HashMap<>();
 
-        if (bindingResult.hasErrors()){
-            List<String> errors = bindingResult.getFieldErrors().stream().map(err -> {
-                return "El campo '" + err.getField() + "' " + err.getDefaultMessage();
-            }).collect(Collectors.toList());
-            response.put("errors", errors);
-            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
-        }
+        // if (bindingResult.hasErrors()){
+        //     List<String> errors = bindingResult.getFieldErrors().stream().map(err -> {
+        //         return "El campo '" + err.getField() + "' " + err.getDefaultMessage();
+        //     }).collect(Collectors.toList());
+        //     response.put("errors", errors);
+        //     return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+        // }
         if (bindingResult.hasErrors()){
             return new ResponseEntity(new Mensaje("campos mal puestos"), HttpStatus.BAD_REQUEST);
         }
