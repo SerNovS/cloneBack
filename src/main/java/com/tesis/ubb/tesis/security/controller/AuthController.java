@@ -2,10 +2,10 @@ package com.tesis.ubb.tesis.security.controller;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
+
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
+
 
 import javax.validation.Valid;
 
@@ -16,12 +16,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import com.tesis.ubb.tesis.models.Cliente;
+
 import com.tesis.ubb.tesis.security.dto.JwtDto;
 import com.tesis.ubb.tesis.security.dto.LoginUsuario;
 import com.tesis.ubb.tesis.security.dto.Mensaje;
@@ -107,8 +106,7 @@ public class AuthController {
                 new UsernamePasswordAuthenticationToken(loginUsuario.getNombreUsuario(), loginUsuario.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtProvider.generateToken(authentication);
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        JwtDto jwtDto = new JwtDto(jwt, userDetails.getUsername(), userDetails.getAuthorities());
+        JwtDto jwtDto = new JwtDto(jwt);
         return new ResponseEntity(jwtDto, HttpStatus.OK);
     }
 
