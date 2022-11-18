@@ -99,5 +99,6 @@ INSERT INTO rol(rol_nombre) VALUES('ROLE_CLIENTE');
 
 INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(1,1);
 INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(1,2);
+INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(1,3);
 INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(2,2);
 INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(3,3);
