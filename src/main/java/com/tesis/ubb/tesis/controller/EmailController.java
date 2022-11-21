@@ -47,7 +47,7 @@ public class EmailController {
     public ResponseEntity<?> sendEmailTemplate(@RequestBody EmailValues emailValues) {
         Optional<Usuario> usuarioOpt = usuarioService.getByNombreUsuarioOrEmail(emailValues.getMailTo());
         if (!usuarioOpt.isPresent()) {
-            return new ResponseEntity<>(new Mensaje("No existe ningún usuario con esas credenciales"),
+            return new ResponseEntity<>(new Mensaje("No existe ese correo o nombre de usuario en nuestro sistema"),
                     HttpStatus.NOT_FOUND);
         }
 
