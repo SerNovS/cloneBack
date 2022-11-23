@@ -8,10 +8,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -23,15 +27,31 @@ public class Producto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank
     private String nombreProducto;
     private String imagen;
+
+    @NotNull
+    @Min(value = 0)
     private Integer stock;
-    private String unidadMedida;
+
+    @NotNull
+    @Min(value = 0)
     private Integer ultimoPrecioCompra;
+
+    @NotNull
+    @Min(value = 0)
     private Integer ultimoPrecioVenta;
     private boolean visibilidad;
 
-    @NotNull(message = "el tipo de producto no puede ser vacio")
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "unidad_id")
+    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+    private UnidadMedida unidadMedida;
+
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tipo_id")
     @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
@@ -40,8 +60,8 @@ public class Producto implements Serializable {
     public Producto() {
     }
 
-    public Producto(Long id, String nombreProducto, String imagen, Integer stock, String unidadMedida,
-            Integer ultimoPrecioCompra, Integer ultimoPrecioVenta, boolean visibilidad) {
+    public Producto(Long id, String nombreProducto, String imagen, Integer stock, UnidadMedida unidadMedida,
+            Integer ultimoPrecioCompra, Integer ultimoPrecioVenta, boolean visibilidad, TipoProducto tipoProducto) {
         this.id = id;
         this.nombreProducto = nombreProducto;
         this.imagen = imagen;
@@ -50,6 +70,7 @@ public class Producto implements Serializable {
         this.ultimoPrecioCompra = ultimoPrecioCompra;
         this.ultimoPrecioVenta = ultimoPrecioVenta;
         this.visibilidad = visibilidad;
+        this.tipoProducto = tipoProducto;
     }
 
     public Long getId() {
@@ -84,11 +105,11 @@ public class Producto implements Serializable {
         this.stock = stock;
     }
 
-    public String getUnidadMedida() {
+    public UnidadMedida getUnidadMedida() {
         return this.unidadMedida;
     }
 
-    public void setUnidadMedida(String unidadMedida) {
+    public void setUnidadMedida(UnidadMedida unidadMedida) {
         this.unidadMedida = unidadMedida;
     }
 
@@ -120,6 +141,14 @@ public class Producto implements Serializable {
         this.visibilidad = visibilidad;
     }
 
+    public TipoProducto getTipoProducto() {
+        return this.tipoProducto;
+    }
+
+    public void setTipoProducto(TipoProducto tipoProducto) {
+        this.tipoProducto = tipoProducto;
+    }
+
     public Producto id(Long id) {
         setId(id);
         return this;
@@ -140,7 +169,7 @@ public class Producto implements Serializable {
         return this;
     }
 
-    public Producto unidadMedida(String unidadMedida) {
+    public Producto unidadMedida(UnidadMedida unidadMedida) {
         setUnidadMedida(unidadMedida);
         return this;
     }
@@ -160,6 +189,11 @@ public class Producto implements Serializable {
         return this;
     }
 
+    public Producto tipoProducto(TipoProducto tipoProducto) {
+        setTipoProducto(tipoProducto);
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -172,13 +206,14 @@ public class Producto implements Serializable {
                 && Objects.equals(imagen, producto.imagen) && Objects.equals(stock, producto.stock)
                 && Objects.equals(unidadMedida, producto.unidadMedida)
                 && Objects.equals(ultimoPrecioCompra, producto.ultimoPrecioCompra)
-                && Objects.equals(ultimoPrecioVenta, producto.ultimoPrecioVenta) && visibilidad == producto.visibilidad;
+                && Objects.equals(ultimoPrecioVenta, producto.ultimoPrecioVenta) && visibilidad == producto.visibilidad
+                && Objects.equals(tipoProducto, producto.tipoProducto);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, nombreProducto, imagen, stock, unidadMedida, ultimoPrecioCompra, ultimoPrecioVenta,
-                visibilidad);
+                visibilidad, tipoProducto);
     }
 
     @Override
@@ -192,15 +227,8 @@ public class Producto implements Serializable {
                 ", ultimoPrecioCompra='" + getUltimoPrecioCompra() + "'" +
                 ", ultimoPrecioVenta='" + getUltimoPrecioVenta() + "'" +
                 ", visibilidad='" + isVisibilidad() + "'" +
+                ", tipoProducto='" + getTipoProducto() + "'" +
                 "}";
-    }
-
-    public TipoProducto getTipoProducto() {
-        return this.tipoProducto;
-    }
-
-    public void setTipoProducto(TipoProducto tipoProducto) {
-        this.tipoProducto = tipoProducto;
     }
 
 }

@@ -42,6 +42,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.tesis.ubb.tesis.models.Producto;
 import com.tesis.ubb.tesis.models.TipoProducto;
+import com.tesis.ubb.tesis.models.UnidadMedida;
 import com.tesis.ubb.tesis.service.ProductoService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
@@ -195,9 +196,14 @@ public class ProductoController {
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/producto/regiones")
+    @GetMapping("/producto/tipo")
     public List<TipoProducto> listarTipoProductos() {
         return productoService.findAllTipos();
     }
-    
+
+
+    @GetMapping("/producto/unidad")
+    public List<UnidadMedida> listarUnidadMedida() {
+        return productoService.findAllUnidades();
+    }
 }
