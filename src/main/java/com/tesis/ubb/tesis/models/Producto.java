@@ -30,6 +30,7 @@ public class Producto implements Serializable {
 
     @NotBlank
     private String nombreProducto;
+    
     private String imagen;
 
     @NotNull
