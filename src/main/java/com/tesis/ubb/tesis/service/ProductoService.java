@@ -24,5 +24,5 @@ public interface ProductoService {
     public List<TipoProducto> findAllTipos();
 
     public List<UnidadMedida> findAllUnidades();
-    
+
 }

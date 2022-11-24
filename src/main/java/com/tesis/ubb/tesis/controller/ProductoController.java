@@ -44,6 +44,7 @@ import com.tesis.ubb.tesis.models.Producto;
 import com.tesis.ubb.tesis.models.TipoProducto;
 import com.tesis.ubb.tesis.models.UnidadMedida;
 import com.tesis.ubb.tesis.service.ProductoService;
+import com.tesis.ubb.tesis.service.TipoProductoService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
@@ -208,7 +209,7 @@ public class ProductoController {
     public ResponseEntity<?> upload(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long id) {
         Map<String, Object> response = new HashMap<>();
         Producto producto = productoService.findById(id);
-       
+
         if (!archivo.isEmpty()) {
             String nombreArchivo = UUID.randomUUID().toString() + "_" + archivo.getOriginalFilename();
             Path rutaArchivo = Paths.get("uploads").resolve(nombreArchivo).toAbsolutePath();

@@ -62,6 +62,7 @@ public class ProductoServiceImpl implements ProductoService {
         return productoRepository.findAllUnidades();
     }
 
+
 	
 
 }

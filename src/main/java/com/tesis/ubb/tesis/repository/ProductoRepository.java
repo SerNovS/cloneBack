@@ -16,4 +16,7 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
 
     @Query("from UnidadMedida")
     public List<UnidadMedida> findAllUnidades();
+
+    public List<TipoProducto> findAllTipoById(Long id);
+
 }

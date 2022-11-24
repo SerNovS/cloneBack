@@ -17,6 +17,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -56,6 +59,7 @@ public class Producto implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tipo_id")
     @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private TipoProducto tipoProducto;
 
     public Producto() {
