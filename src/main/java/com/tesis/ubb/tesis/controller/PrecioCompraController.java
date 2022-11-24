@@ -20,7 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tesis.ubb.tesis.models.PrecioCompra;
+import com.tesis.ubb.tesis.models.Producto;
 import com.tesis.ubb.tesis.service.PrecioCompraService;
+import com.tesis.ubb.tesis.service.ProductoService;
+
 
 
 @CrossOrigin(origins = {"http://localhost:4200"})
@@ -31,11 +34,16 @@ public class PrecioCompraController {
     @Autowired
     PrecioCompraService tipoProductoService;
 
+    @Autowired
+    ProductoService productoService;
+
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_TRABAJADOR')")
     @PostMapping("/PrecioCompra")
-    public ResponseEntity<?> create(@Valid @RequestBody PrecioCompra PrecioCompra, BindingResult result) {
+    public ResponseEntity<?> create(@Valid @RequestBody PrecioCompra precioCompra, BindingResult result) {
 
-        PrecioCompra PrecioCompraNew = null;
+        PrecioCompra precioCompraNew = null;
+        
+
         Map<String, Object> response = new HashMap<>();
 
         if (result.hasErrors()) {
@@ -48,7 +56,7 @@ public class PrecioCompraController {
 
         }
         try {
-            PrecioCompraNew = tipoProductoService.save(PrecioCompra);
+            precioCompraNew = tipoProductoService.save(precioCompra);
             
         } catch (DataAccessException e) {
             response.put("mensaje", "Error al registrar un nuevo precio de compra de productos.");
@@ -57,7 +65,7 @@ public class PrecioCompraController {
         }
 
         response.put("", "El nuevo precio de compra de productos ha sido agregado con éxito");
-        response.put("cliente", PrecioCompraNew);
+        response.put("cliente", precioCompraNew);
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
     }
 

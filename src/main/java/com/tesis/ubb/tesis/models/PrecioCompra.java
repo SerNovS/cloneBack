@@ -13,11 +13,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
 
 @Entity
@@ -41,45 +47,37 @@ public class PrecioCompra implements Serializable{
     @Column(nullable = false)
     private Integer cantidad;
 
-    @Basic
+    //@Basic
     @NotNull(message = "Debe ingresar la fecha.")
-    @Column(nullable = false)
-    private java.sql.Date FechaCompra;
+    @Column(name="fecha",nullable = false)
+    //@Temporal(TemporalType.TIMESTAMP)
+    //java.util.Calendar
+    //java.util.Date
+   // private java.sql.Date FechaCompra;
+   @JsonFormat(pattern = "YYYY-MM-DD", shape=Shape.STRING)
+   private java.sql.Date fechaCompra;
+   
 
-
-    // @NotEmpty
-    // @Column(nullable = false)
-    // private java.sql.Date comienzoValidesFechaCompra;
-
-    
-    // @Column(nullable = false)
-    // private java.sql.Date terminoValidesFechaCompra;
-
-    @NotNull(message = "Indique que tipo de producto ha comprado.")
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "producto_id")
-    private Producto producto;
+    // @NotNull(message = "Indique que tipo de producto ha comprado.")
+    // @ManyToOne(fetch = FetchType.LAZY)
+    // @JoinColumn(name = "producto_id")
+    @NotNull(message = "Ingrese el producto")
+    @Min(0)
+    @Column(name = "producto", insertable = true, updatable = false)
+    private Long producto;
 
     public PrecioCompra() {
     }
 
-   
-
-
-
     public PrecioCompra(Long id, @NotNull(message = "El precio no puede ser vacia.") @Min(1) Integer precio,
             @NotNull(message = "La cantidad no puede ser vacia.") @Min(1) Integer cantidad, Date fechaCompra,
-            @NotNull(message = "Indique que tipo de producto ha comprado.") Producto producto) {
+            @NotNull(message = "Ingrese el producto") @Min(1) Long producto) {
         this.id = id;
         this.precio = precio;
         this.cantidad = cantidad;
-        FechaCompra = fechaCompra;
+        this.fechaCompra = fechaCompra;
         this.producto = producto;
     }
-
-
-
-
 
     public static long getSerialversionuid() {
         return serialVersionUID;
@@ -93,53 +91,37 @@ public class PrecioCompra implements Serializable{
         this.id = id;
     }
 
-   
-
-    public java.sql.Date getFechaCompra() {
-        return FechaCompra;
-    }
-
-    public void setFechaCompra(java.sql.Date fechaCompra) {
-        FechaCompra = fechaCompra;
-    }
-
-    public Producto getProducto() {
-        return producto;
-    }
-
-    public void setProducto(Producto producto) {
-        this.producto = producto;
-    }
-
-
-
-    public Integer getCantidad() {
-        return cantidad;
-    }
-
-
-
-    public void setCantidad(Integer cantidad) {
-        this.cantidad = cantidad;
-    }
-
-
-
-
-
     public Integer getPrecio() {
         return precio;
     }
-
-
-
-
 
     public void setPrecio(Integer precio) {
         this.precio = precio;
     }
 
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public java.sql.Date getFechaCompra() {
+        return fechaCompra;
+    }
+
+    public void setFechaCompra(java.sql.Date fechaCompra) {
+        this.fechaCompra = fechaCompra;
+    }
+
+    public Long getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Long producto) {
+        this.producto = producto;
+    }    
+
     
-
-
 }
