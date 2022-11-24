@@ -17,6 +17,7 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
     @Query("from UnidadMedida")
     public List<UnidadMedida> findAllUnidades();
 
-    public List<TipoProducto> findAllTipoById(Long id);
+    @Query(value = "SELECT DISTINCT * from producto where tipo_id = ?1", nativeQuery = true)
+    public List<Producto> findAllTipoById(Long id);
 
 }

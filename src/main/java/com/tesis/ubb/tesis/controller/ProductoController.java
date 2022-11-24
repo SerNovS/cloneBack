@@ -205,6 +205,11 @@ public class ProductoController {
         return productoService.findAllUnidades();
     }
 
+    @GetMapping("/producto/tipo/{id}")
+    public List<Producto> listarProductosByTipoId(@PathVariable Long id) {
+        return productoService.findAllTipoById(id);
+    }
+
     @PostMapping("producto/upload")
     public ResponseEntity<?> upload(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long id) {
         Map<String, Object> response = new HashMap<>();

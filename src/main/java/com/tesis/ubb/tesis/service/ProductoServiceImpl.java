@@ -62,6 +62,11 @@ public class ProductoServiceImpl implements ProductoService {
         return productoRepository.findAllUnidades();
     }
 
+    @Override
+    public List<Producto> findAllTipoById(Long id) {
+        return productoRepository.findAllTipoById(id);
+    }
+
 
 	
 

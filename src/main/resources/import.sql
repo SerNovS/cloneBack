@@ -77,27 +77,19 @@ INSERT INTO cliente(nombre, apellido,direccion,email,nombre_empresa,telefono) VA
 INSERT INTO cliente(nombre, apellido,direccion,email,nombre_empresa,telefono) VALUES('Angelica','Venegas','Ca3lle Falsa 123','angel1ica.venegas@gmail.com','We Love Pizza','+56987535685');
 
 
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta,visibilidad,tipo_id,unidad_id) VALUES('1b82857b-1baa-40c0-b6f2-01f915dfe5bb_manzana-roja-aislado-sobre-fondo-blanco_1308-81536.webp','Manzana Verde',100, 1000,1500,true,1,3);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta,visibilidad,tipo_id,unidad_id) VALUES('imagen','Manzana Roja',100, 1000,1500,true,1,3);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta,visibilidad,tipo_id,unidad_id) VALUES('8ade5f3b-1bd2-4ad9-9235-a36ce7eebc60_lechuga-escarola.jpg','Lechuga Escarola',100, 1000,1500,false,2,4);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta,visibilidad,tipo_id,unidad_id) VALUES('imagen','Champiniones',100, 1000,1500,true,6,7);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta,visibilidad,tipo_id,unidad_id) VALUES('imagen','Mermelada de Mora',100, 1000,1500,true,3,4);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta,visibilidad,tipo_id,unidad_id) VALUES('imagen','Oregano',100, 1000,1500,true,5,6);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta,visibilidad,tipo_id,unidad_id) VALUES('imagen','Conserva',100, 1000,1500,true,4,4);
 INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta,visibilidad,tipo_id,unidad_id) VALUES('imagen','Manzana Verde',100, 1000,1500,true,1,3);
 INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta,visibilidad,tipo_id,unidad_id) VALUES('imagen','Manzana Roja',100, 1000,1500,true,1,3);
 INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta,visibilidad,tipo_id,unidad_id) VALUES('imagen','Lechuga Escarola',100, 1000,1500,false,2,4);
+INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta,visibilidad,tipo_id,unidad_id) VALUES('imagen','Lechuga Espaniola',100, 1000,1500,true,2,4);
+INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta,visibilidad,tipo_id,unidad_id) VALUES('imagen','Papayas en Tarro',100, 1000,1500,true,4,4);
+INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta,visibilidad,tipo_id,unidad_id) VALUES('imagen','Alcachofas en Tarro',100, 1000,1500,true,4,4);
 INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta,visibilidad,tipo_id,unidad_id) VALUES('imagen','Champiniones',100, 1000,1500,true,6,7);
+INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta,visibilidad,tipo_id,unidad_id) VALUES('imagen','Almejas',100, 1000,1500,true,6,7);
 INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta,visibilidad,tipo_id,unidad_id) VALUES('imagen','Mermelada de Mora',100, 1000,1500,true,3,4);
+INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta,visibilidad,tipo_id,unidad_id) VALUES('imagen','Mermelada de Manzana',100, 1000,1500,true,3,4);
 INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta,visibilidad,tipo_id,unidad_id) VALUES('imagen','Oregano',100, 1000,1500,true,5,6);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta,visibilidad,tipo_id,unidad_id) VALUES('imagen','Conserva',100, 1000,1500,true,4,4);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta,visibilidad,tipo_id,unidad_id) VALUES('imagen','Manzana Verde',100, 1000,1500,true,1,3);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta,visibilidad,tipo_id,unidad_id) VALUES('imagen','Manzana Roja',100, 1000,1500,true,1,3);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta,visibilidad,tipo_id,unidad_id) VALUES('imagen','Lechuga Escarola',100, 1000,1500,false,2,4);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta,visibilidad,tipo_id,unidad_id) VALUES('imagen','Champiniones',100, 1000,1500,true,6,7);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta,visibilidad,tipo_id,unidad_id) VALUES('imagen','Mermelada de Mora',100, 1000,1500,true,3,4);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta,visibilidad,tipo_id,unidad_id) VALUES('imagen','Oregano',100, 1000,1500,true,5,6);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta,visibilidad,tipo_id,unidad_id) VALUES('imagen','Conserva',100, 1000,1500,true,4,4);
+INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta,visibilidad,tipo_id,unidad_id) VALUES('imagen','Pimienta entera',100, 1000,1500,true,5,6);
+
 
 
 
