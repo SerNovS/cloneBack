@@ -58,26 +58,34 @@ public class PrecioCompra implements Serializable{
    private java.sql.Date fechaCompra;
    
 
-    // @NotNull(message = "Indique que tipo de producto ha comprado.")
-    // @ManyToOne(fetch = FetchType.LAZY)
-    // @JoinColumn(name = "producto_id")
-    @NotNull(message = "Ingrese el producto")
-    @Min(0)
-    @Column(name = "producto", insertable = true, updatable = false)
-    private Long producto;
+    @NotNull(message = "Indique que tipo de producto ha comprado.")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "producto_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Producto producto;
+
+
+    // @NotNull(message = "Ingrese el producto")
+    // @Min(0)
+    // @Column(name = "producto", insertable = true, updatable = false)
+    // private Long producto;
 
     public PrecioCompra() {
     }
 
+   
+
     public PrecioCompra(Long id, @NotNull(message = "El precio no puede ser vacia.") @Min(1) Integer precio,
             @NotNull(message = "La cantidad no puede ser vacia.") @Min(1) Integer cantidad, Date fechaCompra,
-            @NotNull(message = "Ingrese el producto") @Min(1) Long producto) {
+            @NotNull(message = "Indique que tipo de producto ha comprado.") Producto producto) {
         this.id = id;
         this.precio = precio;
         this.cantidad = cantidad;
         this.fechaCompra = fechaCompra;
         this.producto = producto;
     }
+
+
 
     public static long getSerialversionuid() {
         return serialVersionUID;
@@ -115,13 +123,17 @@ public class PrecioCompra implements Serializable{
         this.fechaCompra = fechaCompra;
     }
 
-    public Long getProducto() {
+
+
+    public Producto getProducto() {
         return producto;
     }
 
-    public void setProducto(Long producto) {
-        this.producto = producto;
-    }    
 
-    
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+   
 }

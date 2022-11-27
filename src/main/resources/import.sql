@@ -103,3 +103,16 @@ INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(1,2);
 INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(1,3);
 INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(2,2);
 INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(3,3);
+
+iNSERT INTO precio_compra(id, fecha, cantidad, precio, producto_id) VALUES(2,"2022-12-09",400,400,1);
+Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(3,400,400,"2022-12-31",1);
+iNSERT INTO precio_compra(id, fecha, cantidad, precio, producto_id) VALUES(4,"2022-12-09",400,400,1);
+Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(5,400,400,"2022-12-31",1);
+iNSERT INTO precio_compra(id, fecha, cantidad, precio, producto_id) VALUES(6,"2022-12-09",400,400,1);
+Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(7,400,400,"2022-12-31",1);
+iNSERT INTO precio_compra(id, fecha, cantidad, precio, producto_id) VALUES(8,"2022-12-09",400,400,1);
+Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(9,400,400,"2022-12-31",1);
+iNSERT INTO precio_compra(id, fecha, cantidad, precio, producto_id) VALUES(10,"2022-12-09",400,400,1);
+Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(11,400,400,"2022-12-31",1);
+iNSERT INTO precio_compra(id, fecha, cantidad, precio, producto_id) VALUES(12,"2022-12-09",400,400,1);
+Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(13,400,400,"2022-12-31",1);
