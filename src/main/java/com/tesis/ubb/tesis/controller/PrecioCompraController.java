@@ -41,11 +41,10 @@ public class PrecioCompraController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_TRABAJADOR')")
     @PostMapping("/PrecioCompra")
+
     public ResponseEntity<?> create(@Valid @RequestBody PrecioCompra precioCompra, BindingResult result) {
 
         PrecioCompra precioCompraNew = null;
-        
-
         Map<String, Object> response = new HashMap<>();
 
         if (result.hasErrors()) {
@@ -73,7 +72,7 @@ public class PrecioCompraController {
 
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_TRABAJADOR')")
-    @GetMapping("/PrecioCompra")
+    @GetMapping("/precioCompra")
     @ResponseStatus(code = HttpStatus.OK)
     public List<PrecioCompra> index() {
         return tipoProductoService.findAll();
