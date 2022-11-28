@@ -81,8 +81,8 @@ public class PrecioCompraController {
 
 
     // save
-    // eliminar 
-    // editar
+    // eliminar duda
+    // editar   duda
     // listar
 
 

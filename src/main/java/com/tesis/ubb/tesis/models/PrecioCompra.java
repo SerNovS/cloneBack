@@ -50,12 +50,13 @@ public class PrecioCompra implements Serializable{
     //@Basic
     @NotNull(message = "Debe ingresar la fecha.")
     @Column(name="fecha",nullable = false)
-    //@Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Date fechaCompra;
     //java.util.Calendar
     //java.util.Date
    // private java.sql.Date FechaCompra;
-   @JsonFormat(pattern = "YYYY-MM-DD", shape=Shape.STRING)
-   private java.sql.Date fechaCompra;
+//    @JsonFormat(pattern = "YYYY-MM-DD", shape=Shape.STRING)
+//    private java.sql.Date fechaCompra;
    
 
     @NotNull(message = "Indique que tipo de producto ha comprado.")
@@ -75,8 +76,10 @@ public class PrecioCompra implements Serializable{
 
    
 
+
+
     public PrecioCompra(Long id, @NotNull(message = "El precio no puede ser vacia.") @Min(1) Integer precio,
-            @NotNull(message = "La cantidad no puede ser vacia.") @Min(1) Integer cantidad, Date fechaCompra,
+            @NotNull(message = "La cantidad no puede ser vacia.") @Min(1) Integer cantidad, java.util.Date fechaCompra,
             @NotNull(message = "Indique que tipo de producto ha comprado.") Producto producto) {
         this.id = id;
         this.precio = precio;
@@ -84,6 +87,8 @@ public class PrecioCompra implements Serializable{
         this.fechaCompra = fechaCompra;
         this.producto = producto;
     }
+
+
 
 
 
@@ -115,14 +120,8 @@ public class PrecioCompra implements Serializable{
         this.cantidad = cantidad;
     }
 
-    public java.sql.Date getFechaCompra() {
-        return fechaCompra;
-    }
 
-    public void setFechaCompra(java.sql.Date fechaCompra) {
-        this.fechaCompra = fechaCompra;
-    }
-
+  
 
 
     public Producto getProducto() {
@@ -133,6 +132,22 @@ public class PrecioCompra implements Serializable{
 
     public void setProducto(Producto producto) {
         this.producto = producto;
+    }
+
+
+
+
+
+    public java.util.Date getFechaCompra() {
+        return fechaCompra;
+    }
+
+
+
+
+
+    public void setFechaCompra(java.util.Date fechaCompra) {
+        this.fechaCompra = fechaCompra;
     }
 
    

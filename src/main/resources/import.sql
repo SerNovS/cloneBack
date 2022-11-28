@@ -95,42 +95,15 @@ INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(1,3);
 INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(2,2);
 INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(3,3);
 
-iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(2,320,800,"2022-09-07",2);
-Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(3,220,400,"2022-09-07",3);
-iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(4,600,600,"2028-09-07",4);
-Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(5,320,950,"2022-09-07",5);
 
-iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(6,348,80,"2022-09-21",2);
-Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(7,4000,200,"2022-09-21",3);
-iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(8,500,1000,"2022-09-21",4);
-Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(9,1500,200,"2022-09-21",5);
-iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(10,320,1800,"2022-09-07",6);
+iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(2,320,800,"2022-09-07 21:58:09",2);
+Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(3,220,400,"2022-09-07 1:58:09",3);
+iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(4,600,600,"2028-09-07 15:59:09",4);
+Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(5,320,950,"2022-09-07 12:58:09",5);
 
-iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(11,320,1400,"2022-09-21",2);
-Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(12,220,300,"2022-09-21",3);
-iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(13,500,600,"2022-09-21",4);
-Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(14,320,1050,"2022-09-21",5);
-iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(15,348,150,"2022-09-21",6);
-
-Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(16,1500,100,"2022-10-21",4);
-iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(17,320,2000,"2022-10-21",5);
-
-iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(18,320,1400,"2022-11-07",2);
-Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(19,220,300,"2022-11-07",3);
-iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(20,500,600,"2022-11-07",4);
-Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(21,320,1050,"2022-11-07",5);
-
-iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(22,320,2200,"2022-11-21",2);
-Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(23,4000,1800,"2022-11-21",3);
-iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(24,500,5000,"2022-11-21",4);
-Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(25,1500,400,"2022-11-21",5);
-iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(26,320,1950,"2022-11-21",6);
-
-iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(27,320,2200,"2022-12-01",2);
-Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(28,4000,1800,"2022-12-01",3);
-iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(29,500,5000,"2022-12-01",4);
-Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(30,1500,400,"2022-12-01",5);
-iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(31,320,1950,"2022-12-01",6);
-
-
+iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(6,348,80,"2022-09-21 11:59:59",2);
+Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(7,4000,200,"2022-09-21 01:58:12",3);
+iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(8,500,1000,"2022-09-21  05:58:09",4);
+Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(9,1500,200,"2022-09-21  21:58:09",5);
+iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(10,320,1800,"2022-09-07  21:58:09",6);
 
