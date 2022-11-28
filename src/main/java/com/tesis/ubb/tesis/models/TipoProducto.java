@@ -1,7 +1,5 @@
 package com.tesis.ubb.tesis.models;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
@@ -12,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tipos_producto")
-public class TipoProducto implements Serializable {
+public class TipoProducto {
 
 	private static final long serialVersionUID = 1L;
 
