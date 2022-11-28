@@ -1,6 +1,7 @@
 package com.tesis.ubb.tesis.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,5 +21,15 @@ public class TipoProductoServiceImpl implements TipoProductoService {
     public List<TipoProducto> findAll() {
         return (List<TipoProducto>) tipoProductoRepository.findAll();
 
+    }
+
+    @Override
+    public TipoProducto findById(Long id) {
+        return tipoProductoRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        return tipoProductoRepository.existsById(id);
     }
 }

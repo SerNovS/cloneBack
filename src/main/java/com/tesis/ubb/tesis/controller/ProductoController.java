@@ -42,7 +42,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.tesis.ubb.tesis.models.Producto;
 import com.tesis.ubb.tesis.models.TipoProducto;
+import com.tesis.ubb.tesis.models.UnidadMedida;
 import com.tesis.ubb.tesis.service.ProductoService;
+import com.tesis.ubb.tesis.service.TipoProductoService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
@@ -174,16 +176,14 @@ public class ProductoController {
         try {
 
             Producto producto = productoService.findById(id);
-            String nombreImagenAnterior = producto.getImagen();
-
-            if (nombreImagenAnterior != null && nombreImagenAnterior.length() > 0) {
-                Path rutaImagenAnterior = Paths.get("uploads").resolve(nombreImagenAnterior).toAbsolutePath();
-                File archivoFotooAnterior = rutaImagenAnterior.toFile();
-                if (archivoFotooAnterior.exists() && archivoFotooAnterior.canRead()) {
-                    archivoFotooAnterior.delete();
+            String nombreFotoAnterior = producto.getImagen();
+            if (nombreFotoAnterior != null && nombreFotoAnterior.length() > 0) {
+                Path rutaFotoAnterior = Paths.get("uploads").resolve(nombreFotoAnterior).toAbsolutePath();
+                File archivoFotoAnterio = rutaFotoAnterior.toFile();
+                if (archivoFotoAnterio.exists() && archivoFotoAnterio.canRead()) {
+                    archivoFotoAnterio.delete();
                 }
             }
-
             productoService.delete(id);
         } catch (DataAccessException e) {
             response.put("mensaje", "Error al eliminar al producto");
@@ -195,9 +195,75 @@ public class ProductoController {
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/producto/regiones")
+    @GetMapping("/producto/tipo")
     public List<TipoProducto> listarTipoProductos() {
         return productoService.findAllTipos();
     }
-    
+
+    @GetMapping("/producto/unidad")
+    public List<UnidadMedida> listarUnidadMedida() {
+        return productoService.findAllUnidades();
+    }
+
+    @GetMapping("/producto/tipo/{id}")
+    public List<Producto> listarProductosByTipoId(@PathVariable Long id) {
+        return productoService.findAllTipoById(id);
+    }
+
+    @PostMapping("producto/upload")
+    public ResponseEntity<?> upload(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long id) {
+        Map<String, Object> response = new HashMap<>();
+        Producto producto = productoService.findById(id);
+
+        if (!archivo.isEmpty()) {
+            String nombreArchivo = UUID.randomUUID().toString() + "_" + archivo.getOriginalFilename();
+            Path rutaArchivo = Paths.get("uploads").resolve(nombreArchivo).toAbsolutePath();
+            log.info(rutaArchivo.toString());
+            try {
+                Files.copy(archivo.getInputStream(), rutaArchivo);
+            } catch (IOException e) {
+
+                response.put("mensaje", "Error al subir la imagen: " + nombreArchivo);
+                response.put("error", e.getMessage().concat(": ").concat(e.getCause().getMessage()));
+                return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+            String nombreFotoAnterior = producto.getImagen();
+            if (nombreFotoAnterior != null && nombreFotoAnterior.length() > 0) {
+                Path rutaFotoAnterior = Paths.get("uploads").resolve(nombreFotoAnterior).toAbsolutePath();
+                File archivoFotoAnterio = rutaFotoAnterior.toFile();
+                if (archivoFotoAnterio.exists() && archivoFotoAnterio.canRead()) {
+                    archivoFotoAnterio.delete();
+                }
+            }
+            producto.setImagen(nombreArchivo);
+            productoService.save(producto);
+
+            response.put("producto", producto);
+            response.put("mensaje", "Has subido correctamente la imagen: " + nombreArchivo);
+        }
+
+        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/uploads/img/{nombreFoto:.+}")
+    public ResponseEntity<Resource> verFoto(@PathVariable String nombreFoto) {
+
+        Path rutaArchivo = Paths.get("uploads").resolve(nombreFoto).toAbsolutePath();
+        log.info(rutaArchivo.toString());
+        Resource recurso = null;
+        try {
+            recurso = new UrlResource(rutaArchivo.toUri());
+        } catch (MalformedURLException e) {
+
+            e.printStackTrace();
+        }
+
+        if (!recurso.exists() && !recurso.isReadable()) {
+            throw new RuntimeException("Error, no se pudo cargar la imagen: " + nombreFoto);
+        }
+        HttpHeaders cabecera = new HttpHeaders();
+        cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"");
+
+        return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
+    }
 }

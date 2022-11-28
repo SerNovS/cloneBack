@@ -5,6 +5,16 @@ INSERT INTO tipos_producto (nombre_tipo) VALUES ('Conservas');
 INSERT INTO tipos_producto (nombre_tipo) VALUES ('Condimentos');
 INSERT INTO tipos_producto (nombre_tipo) VALUES ('Otros');
 
+INSERT INTO unidades (nombre) VALUES ('1/2 KG');
+INSERT INTO unidades (nombre) VALUES ('250 gramos');
+INSERT INTO unidades (nombre) VALUES ('KG');
+INSERT INTO unidades (nombre) VALUES ('C/U');
+INSERT INTO unidades (nombre) VALUES ('El moño');
+INSERT INTO unidades (nombre) VALUES ('La bolsa');
+INSERT INTO unidades (nombre) VALUES ('La Bandeja');
+INSERT INTO unidades (nombre) VALUES ('Botella');
+
+
 INSERT INTO cliente(nombre, apellido,direccion,email,nombre_empresa,telefono) VALUES('Felipe','Castillo','Calle Falsa 123','fel4ipe.castillo@gmail.com',null,'+56999599344');
 INSERT INTO cliente(nombre, apellido,direccion,email,nombre_empresa,telefono) VALUES('Angelica','Venegas','Calle Falsa 1823','ang5elica.venegas@gmail.com','We Love Pizza','+56987535685');
 INSERT INTO cliente(nombre, apellido,direccion,email,nombre_empresa,telefono) VALUES('Felipe','Castillo','Calle Falsa 1243','felipe.cast5illo@gmail.com',null,'+56999599344');
@@ -66,6 +76,14 @@ INSERT INTO cliente(nombre, apellido,direccion,email,nombre_empresa,telefono) VA
 INSERT INTO cliente(nombre, apellido,direccion,email,nombre_empresa,telefono) VALUES('Felipe','Castillo','Cal8le Falsa 123','felipe.casti8llo@gmail.com',null,'+56999599344');
 INSERT INTO cliente(nombre, apellido,direccion,email,nombre_empresa,telefono) VALUES('Angelica','Venegas','Ca3lle Falsa 123','angel1ica.venegas@gmail.com','We Love Pizza','+56987535685');
 
+
+INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad,tipo_id) VALUES('imagen','Manzana Verde',100, 1000,1500,'KG',true,1);
+INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad,tipo_id) VALUES('imagen','Manzana Roja',100, 1000,1500,'KG',true,1);
+INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad,tipo_id) VALUES('imagen','Lechuga Escarola',100, 1000,1500,'KG',false,2);
+INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad,tipo_id) VALUES('imagen','Champiniones',100, 1000,1500,'Bandeja',true,6);
+INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad,tipo_id) VALUES('imagen','Mermelada de Mora',100, 1000,1500,'KG',true,3);
+INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad,tipo_id) VALUES('imagen','Oregano',100, 1000,1500,'KG',true,5);
+INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad,tipo_id) VALUES('imagen','Conserva',100, 1000,1500,'KG',true,4);
 INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad,tipo_id) VALUES('imagen','Manzana Verde',100, 1000,1500,'KG',true,1);
 INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad,tipo_id) VALUES('imagen','Manzana Roja',100, 1000,1500,'KG',true,1);
 INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad,tipo_id) VALUES('imagen','Lechuga Escarola',100, 1000,1500,'KG',false,2);
