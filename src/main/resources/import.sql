@@ -5,16 +5,6 @@ INSERT INTO tipos_producto (nombre_tipo) VALUES ('Conservas');
 INSERT INTO tipos_producto (nombre_tipo) VALUES ('Condimentos');
 INSERT INTO tipos_producto (nombre_tipo) VALUES ('Otros');
 
-INSERT INTO unidades (nombre) VALUES ('1/2 KG');
-INSERT INTO unidades (nombre) VALUES ('250 gramos');
-INSERT INTO unidades (nombre) VALUES ('KG');
-INSERT INTO unidades (nombre) VALUES ('C/U');
-INSERT INTO unidades (nombre) VALUES ('El moño');
-INSERT INTO unidades (nombre) VALUES ('La bolsa');
-INSERT INTO unidades (nombre) VALUES ('La Bandeja');
-INSERT INTO unidades (nombre) VALUES ('Botella');
-
-
 INSERT INTO cliente(nombre, apellido,direccion,email,nombre_empresa,telefono) VALUES('Felipe','Castillo','Calle Falsa 123','fel4ipe.castillo@gmail.com',null,'+56999599344');
 INSERT INTO cliente(nombre, apellido,direccion,email,nombre_empresa,telefono) VALUES('Angelica','Venegas','Calle Falsa 1823','ang5elica.venegas@gmail.com','We Love Pizza','+56987535685');
 INSERT INTO cliente(nombre, apellido,direccion,email,nombre_empresa,telefono) VALUES('Felipe','Castillo','Calle Falsa 1243','felipe.cast5illo@gmail.com',null,'+56999599344');
