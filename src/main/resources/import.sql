@@ -106,3 +106,9 @@ INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(1,2);
 INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(1,3);
 INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(2,2);
 INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(3,3);
+
+INSERT INTO cargos(nombre) VALUES ('Repartidor');
+INSERT INTO cargos(nombre) VALUES ('Cajero');
+
+INSERT into empleado(nombre,apellido, telefono,cargo_id) VALUES ('Alberto', 'Carrasco','+56999599344',1);
+INSERT into empleado(nombre,apellido, telefono,cargo_id) VALUES ('Alberto2', 'Carrasco1','+56999599344',2);
