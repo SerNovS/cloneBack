@@ -54,6 +54,14 @@ public class ProductoServiceImpl implements ProductoService {
         return productoRepository.findAllTipos();
     }
 
+    @Override
+	@Transactional
+    public Producto actualizaStock(Long id ,Integer stock){
+        Producto p= productoRepository.findById(id).orElse(null);
+        Integer valor=p.getStock() + stock;
+        p.setStock(valor);
+        return p;
+    }
 	
 
 }

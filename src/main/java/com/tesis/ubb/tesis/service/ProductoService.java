@@ -21,5 +21,7 @@ public interface ProductoService {
     public Producto findById(Long id);
 
     public List<TipoProducto> findAllTipos();
+
+    public Producto actualizaStock(Long id,Integer stock);
     
 }

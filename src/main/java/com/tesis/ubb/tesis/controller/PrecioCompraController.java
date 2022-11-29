@@ -40,8 +40,7 @@ public class PrecioCompraController {
     ProductoService productoService;
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_TRABAJADOR')")
-    @PostMapping("/PrecioCompra")
-
+    @PostMapping("/precioCompra")
     public ResponseEntity<?> create(@Valid @RequestBody PrecioCompra precioCompra, BindingResult result) {
 
         PrecioCompra precioCompraNew = null;

@@ -26,6 +26,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -198,6 +199,33 @@ public class ProductoController {
     @GetMapping("/producto/regiones")
     public List<TipoProducto> listarTipoProductos() {
         return productoService.findAllTipos();
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_TRABAJADOR')")
+    @PutMapping("producto/{id}/{stock}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public ResponseEntity<?> StockUpdate(@Valid @RequestBody @PathVariable Long id, @PathVariable Integer stock) {
+
+        Producto productoActual = productoService.findById(id);
+
+        Map<String, Object> response = new HashMap<>();
+
+        if (productoActual == null) {
+            response.put("mensaje", "El producto ID: ".concat(id.toString().concat(" no existe en la base de datos")));
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+        }
+
+        try {
+            productoService.actualizaStock(id, stock);
+        } catch (DataAccessException e) {
+            response.put("mensaje", "Error al actualizar el producto");
+            response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        response.put("", "El producto ha sido actualizado con éxito");
+        response.put("Producto", productoActual);
+        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
     }
     
 }
