@@ -95,6 +95,11 @@ INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(1,3);
 INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(2,2);
 INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(3,3);
 
+INSERT INTO cargos(nombre) VALUES ('Repartidor');
+INSERT INTO cargos(nombre) VALUES ('Cajero');
+
+INSERT into empleado(nombre,apellido, telefono,cargo_id) VALUES ('Alberto', 'Carrasco','+56999599344',1);
+INSERT into empleado(nombre,apellido, telefono,cargo_id) VALUES ('Alberto2', 'Carrasco1','+56999599344',2);
 
 iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(2,320,800,"2022-09-07 21:58:09",2);
 Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(3,220,400,"2022-09-07 1:58:09",3);
