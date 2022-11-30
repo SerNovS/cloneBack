@@ -201,21 +201,21 @@ public class ProductoController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_TRABAJADOR')")
-    @PutMapping("producto/{id}/{stock}")
+    @PutMapping("/productostock/")
     @ResponseStatus(code = HttpStatus.OK)
-    public ResponseEntity<?> StockUpdate(@Valid @RequestBody @PathVariable Long id, @PathVariable Integer stock) {
+    public ResponseEntity<?> StockUpdate(@Valid @RequestBody Producto producto) {
 
-        Producto productoActual = productoService.findById(id);
+        Producto productoActual = productoService.findById(producto.getId());
 
         Map<String, Object> response = new HashMap<>();
 
         if (productoActual == null) {
-            response.put("mensaje", "El producto ID: ".concat(id.toString().concat(" no existe en la base de datos")));
+            response.put("mensaje", "El producto ID: ".concat(producto.getId().toString().concat(" no existe en la base de datos")));
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
         }
 
         try {
-            productoService.actualizaStock(id, stock);
+            productoService.actualizaStock(productoActual.getId(),producto.getStock());
         } catch (DataAccessException e) {
             response.put("mensaje", "Error al actualizar el producto");
             response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
