@@ -23,5 +23,8 @@ public interface ProductoService {
     public List<TipoProducto> findAllTipos();
 
     public Producto actualizaStock(Long id,Integer stock);
+
+    public Producto actualizaPrecioVenta(Long id ,Integer stock);
+     
     
 }

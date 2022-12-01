@@ -62,6 +62,14 @@ public class ProductoServiceImpl implements ProductoService {
         p.setStock(valor);
         return p;
     }
+
+    @Override
+	@Transactional
+    public Producto actualizaPrecioVenta(Long id ,Integer precioVenta){
+        Producto p= productoRepository.findById(id).orElse(null);
+        p.setStock(precioVenta);
+        return p;
+    }
 	
 
 }

@@ -34,7 +34,7 @@ import com.tesis.ubb.tesis.service.ProductoService;
 public class PrecioCompraController {
 
     @Autowired
-    PrecioCompraService tipoProductoService;
+    PrecioCompraService precioCompraService;
 
     @Autowired
     ProductoService productoService;
@@ -56,7 +56,7 @@ public class PrecioCompraController {
 
         }
         try {
-            precioCompraNew = tipoProductoService.save(precioCompra);
+            precioCompraNew = precioCompraService.save(precioCompra);
             
         } catch (DataAccessException e) {
             response.put("mensaje", "Error al registrar un nuevo precio de compra de productos.");
@@ -74,7 +74,7 @@ public class PrecioCompraController {
     @GetMapping("/precioCompra")
     @ResponseStatus(code = HttpStatus.OK)
     public List<PrecioCompra> index() {
-        return tipoProductoService.findAll();
+        return precioCompraService.findAll();
     }
 
 

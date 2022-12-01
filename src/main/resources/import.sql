@@ -117,3 +117,10 @@ iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(8,500
 Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(9,1500,200,"2022-09-21  21:58:09",5);
 iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(10,320,1800,"2022-09-07  21:58:09",6);
 
+
+
+iNSERT INTO precio_venta(id, precio, cantidad, fecha, producto_id) VALUES(27,400,0,"2022-12-01 21:58:09",2);
+Insert into precio_venta (id,precio,cantidad,fecha,producto_id)values(28,5000,0,"2022-12-01 21:58:09",3);
+iNSERT INTO precio_venta(id, precio, cantidad, fecha, producto_id) VALUES(29,1500,0,"2022-12-01 21:58:09",4);
+Insert into precio_venta (id,precio,cantidad,fecha,producto_id)values(30,1500,0,"2022-12-01 21:58:09",5);
+iNSERT INTO precio_venta(id, precio, cantidad, fecha, producto_id) VALUES(31,1320,0,"2022-12-01 21:58:09",6);

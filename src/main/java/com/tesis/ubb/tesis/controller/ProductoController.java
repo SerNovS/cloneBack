@@ -202,7 +202,6 @@ public class ProductoController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_TRABAJADOR')")
     @PutMapping("/productostock/")
-    @ResponseStatus(code = HttpStatus.OK)
     public ResponseEntity<?> StockUpdate(@Valid @RequestBody Producto producto) {
 
         Producto productoActual = productoService.findById(producto.getId());
@@ -216,6 +215,38 @@ public class ProductoController {
 
         try {
             productoService.actualizaStock(productoActual.getId(),producto.getStock());
+        } catch (DataAccessException e) {
+            response.put("mensaje", "Error al actualizar el producto");
+            response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        response.put("", "El producto ha sido actualizado con éxito");
+        response.put("Producto", productoActual);
+        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_TRABAJADOR')")
+    @PutMapping("/productoPrecioVenta/")
+    public ResponseEntity<?> PrecioVentaUpdate(@Valid @RequestBody Producto producto) {
+
+        Producto productoActual = productoService.findById(producto.getId());
+
+        Map<String, Object> response = new HashMap<>();
+
+        Producto NoMenoACOmpra=productoService.findById(producto.getId());
+
+        if(NoMenoACOmpra.getUltimoPrecioCompra()>=producto.getUltimoPrecioVenta()){
+            response.put("mensaje", "Error al registrar un nuevo precio de venta, el precio de venta debe ser mayor al precio de compra.");
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        if (productoActual == null) {
+            response.put("mensaje", "El producto ID: ".concat(producto.getId().toString().concat(" no existe en la base de datos")));
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+        }
+        try {
+            productoService.actualizaPrecioVenta(productoActual.getId(),producto.getUltimoPrecioVenta());
         } catch (DataAccessException e) {
             response.put("mensaje", "Error al actualizar el producto");
             response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
