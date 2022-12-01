@@ -25,6 +25,8 @@ public interface ProductoService {
     public Producto actualizaStock(Long id,Integer stock);
 
     public Producto actualizaPrecioVenta(Long id ,Integer stock);
+    
+    public Producto actualizaPrecioCompra(Long id ,Integer precioCompra);
      
     
 }

@@ -57,6 +57,9 @@ public class PrecioCompraController {
         }
         try {
             precioCompraNew = precioCompraService.save(precioCompra);
+            productoService.actualizaStock(precioCompra.getProducto().getId(),precioCompra.getCantidad());
+            productoService.actualizaPrecioCompra(precioCompra.getProducto().getId(),precioCompra.getPrecio());
+            precioCompraNew.setProducto(productoService.findById(precioCompra.getProducto().getId()));
             
         } catch (DataAccessException e) {
             response.put("mensaje", "Error al registrar un nuevo precio de compra de productos.");

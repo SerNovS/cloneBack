@@ -65,9 +65,17 @@ public class ProductoServiceImpl implements ProductoService {
 
     @Override
 	@Transactional
+    public Producto actualizaPrecioCompra(Long id ,Integer precioCompra){
+        Producto p= productoRepository.findById(id).orElse(null);
+        p.setUltimoPrecioCompra(precioCompra);
+        return p;
+    }
+
+    @Override
+	@Transactional
     public Producto actualizaPrecioVenta(Long id ,Integer precioVenta){
         Producto p= productoRepository.findById(id).orElse(null);
-        p.setStock(precioVenta);
+        p.setUltimoPrecioVenta(precioVenta);
         return p;
     }
 	

@@ -63,6 +63,8 @@ public class PrecioVentaController {
         }
         try {
             precioVentaNew = precioVentaService.save(precioVenta);
+            productoService.actualizaPrecioVenta(precioVenta.getProducto().getId(),precioVenta.getPrecio());
+            precioVentaNew.setProducto(productoService.findById(precioVenta.getProducto().getId()));
             
         } catch (DataAccessException e) {
             response.put("mensaje", "Error al registrar un nuevo precio de venta de productos.");

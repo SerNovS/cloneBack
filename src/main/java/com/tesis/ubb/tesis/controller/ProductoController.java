@@ -236,7 +236,7 @@ public class ProductoController {
 
         Producto NoMenoACOmpra=productoService.findById(producto.getId());
 
-        if(NoMenoACOmpra.getUltimoPrecioCompra()>=producto.getUltimoPrecioVenta()){
+        if(NoMenoACOmpra.getUltimoPrecioCompra()<=producto.getUltimoPrecioVenta()){
             response.put("mensaje", "Error al registrar un nuevo precio de venta, el precio de venta debe ser mayor al precio de compra.");
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
