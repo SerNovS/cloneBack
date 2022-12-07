@@ -8,6 +8,7 @@ import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -27,8 +28,17 @@ public class EmailService {
     @Value("${mail.urlFront}")
     private String urlFront;
 
+    public void sendEmail() {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("movilferia1@gmail.com");
+        message.setTo("movilferia1@gmail.com");
+        message.setSubject("Prueba envio email simple");
+        message.setText("este es el contenido del email");
 
-    public void SendEmail(EmailValues emailValues) {
+        javaMailSender.send(message);
+    }
+
+    public void SendEmailTemplate(EmailValues emailValues) {
         MimeMessage message = javaMailSender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);

@@ -1,24 +1,17 @@
 package com.tesis.ubb.tesis.models;
 
+
 import java.io.Serializable;
 import java.util.Objects;
+
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -30,43 +23,24 @@ public class Producto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @NotBlank
     private String nombreProducto;
-    
     private String imagen;
-
-    @NotNull
-    @Min(value = 0)
     private Integer stock;
-
-    @NotNull
-    @Min(value = 0)
+    private String unidadMedida;
     private Integer ultimoPrecioCompra;
-
-    @NotNull
-    @Min(value = 0)
     private Integer ultimoPrecioVenta;
     private boolean visibilidad;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "unidad_id")
-    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-    private UnidadMedida unidadMedida;
-
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tipo_id")
-    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private TipoProducto tipoProducto;
+    // @ManyToOne(fetch = FetchType.LAZY)
+    // @JoinColumn(name = "tipo_id")
+    // @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+    // private TipoProducto tipoProducto;
+      
 
     public Producto() {
     }
 
-    public Producto(Long id, String nombreProducto, String imagen, Integer stock, UnidadMedida unidadMedida,
-            Integer ultimoPrecioCompra, Integer ultimoPrecioVenta, boolean visibilidad, TipoProducto tipoProducto) {
+    public Producto(Long id, String nombreProducto, String imagen, Integer stock, String unidadMedida, Integer ultimoPrecioCompra, Integer ultimoPrecioVenta, boolean visibilidad) {
         this.id = id;
         this.nombreProducto = nombreProducto;
         this.imagen = imagen;
@@ -75,7 +49,6 @@ public class Producto implements Serializable {
         this.ultimoPrecioCompra = ultimoPrecioCompra;
         this.ultimoPrecioVenta = ultimoPrecioVenta;
         this.visibilidad = visibilidad;
-        this.tipoProducto = tipoProducto;
     }
 
     public Long getId() {
@@ -110,11 +83,11 @@ public class Producto implements Serializable {
         this.stock = stock;
     }
 
-    public UnidadMedida getUnidadMedida() {
+    public String getUnidadMedida() {
         return this.unidadMedida;
     }
 
-    public void setUnidadMedida(UnidadMedida unidadMedida) {
+    public void setUnidadMedida(String unidadMedida) {
         this.unidadMedida = unidadMedida;
     }
 
@@ -146,14 +119,6 @@ public class Producto implements Serializable {
         this.visibilidad = visibilidad;
     }
 
-    public TipoProducto getTipoProducto() {
-        return this.tipoProducto;
-    }
-
-    public void setTipoProducto(TipoProducto tipoProducto) {
-        this.tipoProducto = tipoProducto;
-    }
-
     public Producto id(Long id) {
         setId(id);
         return this;
@@ -174,7 +139,7 @@ public class Producto implements Serializable {
         return this;
     }
 
-    public Producto unidadMedida(UnidadMedida unidadMedida) {
+    public Producto unidadMedida(String unidadMedida) {
         setUnidadMedida(unidadMedida);
         return this;
     }
@@ -194,11 +159,6 @@ public class Producto implements Serializable {
         return this;
     }
 
-    public Producto tipoProducto(TipoProducto tipoProducto) {
-        setTipoProducto(tipoProducto);
-        return this;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -207,33 +167,36 @@ public class Producto implements Serializable {
             return false;
         }
         Producto producto = (Producto) o;
-        return Objects.equals(id, producto.id) && Objects.equals(nombreProducto, producto.nombreProducto)
-                && Objects.equals(imagen, producto.imagen) && Objects.equals(stock, producto.stock)
-                && Objects.equals(unidadMedida, producto.unidadMedida)
-                && Objects.equals(ultimoPrecioCompra, producto.ultimoPrecioCompra)
-                && Objects.equals(ultimoPrecioVenta, producto.ultimoPrecioVenta) && visibilidad == producto.visibilidad
-                && Objects.equals(tipoProducto, producto.tipoProducto);
+        return Objects.equals(id, producto.id) && Objects.equals(nombreProducto, producto.nombreProducto) && Objects.equals(imagen, producto.imagen) && Objects.equals(stock, producto.stock) && Objects.equals(unidadMedida, producto.unidadMedida) && Objects.equals(ultimoPrecioCompra, producto.ultimoPrecioCompra) && Objects.equals(ultimoPrecioVenta, producto.ultimoPrecioVenta) && visibilidad == producto.visibilidad;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nombreProducto, imagen, stock, unidadMedida, ultimoPrecioCompra, ultimoPrecioVenta,
-                visibilidad, tipoProducto);
+        return Objects.hash(id, nombreProducto, imagen, stock, unidadMedida, ultimoPrecioCompra, ultimoPrecioVenta, visibilidad);
     }
 
     @Override
     public String toString() {
         return "{" +
-                " id='" + getId() + "'" +
-                ", nombreProducto='" + getNombreProducto() + "'" +
-                ", imagen='" + getImagen() + "'" +
-                ", stock='" + getStock() + "'" +
-                ", unidadMedida='" + getUnidadMedida() + "'" +
-                ", ultimoPrecioCompra='" + getUltimoPrecioCompra() + "'" +
-                ", ultimoPrecioVenta='" + getUltimoPrecioVenta() + "'" +
-                ", visibilidad='" + isVisibilidad() + "'" +
-                ", tipoProducto='" + getTipoProducto() + "'" +
-                "}";
+            " id='" + getId() + "'" +
+            ", nombreProducto='" + getNombreProducto() + "'" +
+            ", imagen='" + getImagen() + "'" +
+            ", stock='" + getStock() + "'" +
+            ", unidadMedida='" + getUnidadMedida() + "'" +
+            ", ultimoPrecioCompra='" + getUltimoPrecioCompra() + "'" +
+            ", ultimoPrecioVenta='" + getUltimoPrecioVenta() + "'" +
+            ", visibilidad='" + isVisibilidad() + "'" +
+            "}";
     }
+
+
+    // public TipoProducto getTipoProducto() {
+    //     return this.tipoProducto;
+    // }
+
+    // public void setTipoProducto(TipoProducto tipoProducto) {
+    //     this.tipoProducto = tipoProducto;
+    // }
+
 
 }

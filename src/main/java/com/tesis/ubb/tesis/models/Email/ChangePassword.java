@@ -3,7 +3,6 @@ package com.tesis.ubb.tesis.models.Email;
 import javax.validation.constraints.NotBlank;
 
 public class ChangePassword {
-    
     @NotBlank
     private String password;
     @NotBlank
