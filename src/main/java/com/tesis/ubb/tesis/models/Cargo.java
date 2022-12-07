@@ -11,32 +11,31 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tipos_producto")
-public class TipoProducto implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+@Table(name = "cargos")
+public class Cargo implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idTipoProducto;
+	private Long id;
 
 	@Column(nullable = false)
-	private String nombreTipo;
+	private String nombre;
 
 	public Long getIdTipoProducto() {
-		return this.idTipoProducto;
+		return this.id;
 	}
 
 	public void setIdTipoProducto(Long idTipoProducto) {
-		this.idTipoProducto = idTipoProducto;
+		this.id = idTipoProducto;
 	}
 
 	public String getNombreTipo() {
-		return this.nombreTipo;
+		return this.nombre;
 	}
 
 	public void setNombreTipo(String nombreTipo) {
-		this.nombreTipo = nombreTipo;
+		this.nombre = nombreTipo;
 	}
-
 }
