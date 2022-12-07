@@ -26,6 +26,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,6 +42,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tesis.ubb.tesis.models.Producto;
+
+import com.tesis.ubb.tesis.models.TipoProducto;
+
+
 import com.tesis.ubb.tesis.service.ProductoService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
@@ -193,6 +198,71 @@ public class ProductoController {
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
     }
 
+
+    @GetMapping("/producto/regiones")
+    public List<TipoProducto> listarTipoProductos() {
+        return productoService.findAllTipos();
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_TRABAJADOR')")
+    @PutMapping("/productostock/")
+    public ResponseEntity<?> StockUpdate(@Valid @RequestBody Producto producto) {
+
+        Producto productoActual = productoService.findById(producto.getId());
+
+        Map<String, Object> response = new HashMap<>();
+
+        if (productoActual == null) {
+            response.put("mensaje", "El producto ID: ".concat(producto.getId().toString().concat(" no existe en la base de datos")));
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+        }
+
+        try {
+            productoService.actualizaStock(productoActual.getId(),producto.getStock());
+        } catch (DataAccessException e) {
+            response.put("mensaje", "Error al actualizar el producto");
+            response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        response.put("", "El producto ha sido actualizado con éxito");
+        response.put("Producto", productoActual);
+        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_TRABAJADOR')")
+    @PutMapping("/productoPrecioVenta/")
+    public ResponseEntity<?> PrecioVentaUpdate(@Valid @RequestBody Producto producto) {
+
+        Producto productoActual = productoService.findById(producto.getId());
+
+        Map<String, Object> response = new HashMap<>();
+
+        Producto NoMenoACOmpra=productoService.findById(producto.getId());
+
+        if(NoMenoACOmpra.getUltimoPrecioCompra()<=producto.getUltimoPrecioVenta()){
+            response.put("mensaje", "Error al registrar un nuevo precio de venta, el precio de venta debe ser mayor al precio de compra.");
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        if (productoActual == null) {
+            response.put("mensaje", "El producto ID: ".concat(producto.getId().toString().concat(" no existe en la base de datos")));
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+        }
+        try {
+            productoService.actualizaPrecioVenta(productoActual.getId(),producto.getUltimoPrecioVenta());
+        } catch (DataAccessException e) {
+            response.put("mensaje", "Error al actualizar el producto");
+            response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        response.put("", "El producto ha sido actualizado con éxito");
+        response.put("Producto", productoActual);
+        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+    }
+    
+
     // @PostMapping("/producto/upload")
     // public ResponseEntity<?> upload(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long id) {
 
@@ -255,4 +325,5 @@ public class ProductoController {
 		
 	// 	return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
 	// }
+
 }

@@ -13,6 +13,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -31,16 +35,19 @@ public class Producto implements Serializable {
     private Integer ultimoPrecioVenta;
     private boolean visibilidad;
 
-    // @ManyToOne(fetch = FetchType.LAZY)
-    // @JoinColumn(name = "tipo_id")
-    // @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
-    // private TipoProducto tipoProducto;
-      
+
+    @NotNull(message = "el tipo de producto no puede ser vacio")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tipo_id")
+    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+    private TipoProducto tipoProducto;
+
 
     public Producto() {
     }
-
+    
     public Producto(Long id, String nombreProducto, String imagen, Integer stock, String unidadMedida, Integer ultimoPrecioCompra, Integer ultimoPrecioVenta, boolean visibilidad) {
+
         this.id = id;
         this.nombreProducto = nombreProducto;
         this.imagen = imagen;
@@ -167,36 +174,42 @@ public class Producto implements Serializable {
             return false;
         }
         Producto producto = (Producto) o;
+      && Objects.equals(ultimoPrecioVenta, producto.ultimoPrecioVenta) && visibilidad == producto.visibilidad;
+
         return Objects.equals(id, producto.id) && Objects.equals(nombreProducto, producto.nombreProducto) && Objects.equals(imagen, producto.imagen) && Objects.equals(stock, producto.stock) && Objects.equals(unidadMedida, producto.unidadMedida) && Objects.equals(ultimoPrecioCompra, producto.ultimoPrecioCompra) && Objects.equals(ultimoPrecioVenta, producto.ultimoPrecioVenta) && visibilidad == producto.visibilidad;
+
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nombreProducto, imagen, stock, unidadMedida, ultimoPrecioCompra, ultimoPrecioVenta, visibilidad);
+
+        return Objects.hash(id, nombreProducto, imagen, stock, unidadMedida, ultimoPrecioCompra, ultimoPrecioVenta,
+                visibilidad);
+
     }
 
     @Override
     public String toString() {
         return "{" +
-            " id='" + getId() + "'" +
-            ", nombreProducto='" + getNombreProducto() + "'" +
-            ", imagen='" + getImagen() + "'" +
-            ", stock='" + getStock() + "'" +
-            ", unidadMedida='" + getUnidadMedida() + "'" +
-            ", ultimoPrecioCompra='" + getUltimoPrecioCompra() + "'" +
-            ", ultimoPrecioVenta='" + getUltimoPrecioVenta() + "'" +
-            ", visibilidad='" + isVisibilidad() + "'" +
-            "}";
+
+                " id='" + getId() + "'" +
+                ", nombreProducto='" + getNombreProducto() + "'" +
+                ", imagen='" + getImagen() + "'" +
+                ", stock='" + getStock() + "'" +
+                ", unidadMedida='" + getUnidadMedida() + "'" +
+                ", ultimoPrecioCompra='" + getUltimoPrecioCompra() + "'" +
+                ", ultimoPrecioVenta='" + getUltimoPrecioVenta() + "'" +
+                ", visibilidad='" + isVisibilidad() + "'" +
+                "}";
     }
 
+    public TipoProducto getTipoProducto() {
+        return this.tipoProducto;
+    }
 
-    // public TipoProducto getTipoProducto() {
-    //     return this.tipoProducto;
-    // }
-
-    // public void setTipoProducto(TipoProducto tipoProducto) {
-    //     this.tipoProducto = tipoProducto;
-    // }
+    public void setTipoProducto(TipoProducto tipoProducto) {
+        this.tipoProducto = tipoProducto;
+    }
 
 
 }

@@ -66,27 +66,15 @@ INSERT INTO cliente(nombre, apellido,direccion,email,nombre_empresa,telefono) VA
 INSERT INTO cliente(nombre, apellido,direccion,email,nombre_empresa,telefono) VALUES('Angelica','Venegas','Ca3lle Falsa 123','angel1ica.venegas@gmail.com','We Love Pizza','+56987535685');
 
 
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad) VALUES('imagen','Manzana Verde',100, 1000,1500,'KG',true);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad) VALUES('imagen','Manzana Roja',100, 1000,1500,'KG',true);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad) VALUES('imagen','Lechuga Escarola',100, 1000,1500,'KG',false);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad) VALUES('imagen','Champiniones',100, 1000,1500,'KG',true);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad) VALUES('imagen','Mermelada de Mora',100, 1000,1500,'KG',true);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad) VALUES('imagen','Oregano',100, 1000,1500,'KG',true);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad) VALUES('imagen','Conserva',100, 1000,1500,'KG',true);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad) VALUES('imagen','Manzana Verde',100, 1000,1500,'KG',true);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad) VALUES('imagen','Manzana Roja',100, 1000,1500,'KG',true);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad) VALUES('imagen','Lechuga Escarola',100, 1000,1500,'KG',false);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad) VALUES('imagen','Champiniones',100, 1000,1500,'KG',true);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad) VALUES('imagen','Mermelada de Mora',100, 1000,1500,'KG',true);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad) VALUES('imagen','Oregano',100, 1000,1500,'KG',true);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad) VALUES('imagen','Conserva',100, 1000,1500,'KG',true);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad) VALUES('imagen','Manzana Verde',100, 1000,1500,'KG',true);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad) VALUES('imagen','Manzana Roja',100, 1000,1500,'KG',true);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad) VALUES('imagen','Lechuga Escarola',100, 1000,1500,'KG',false);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad) VALUES('imagen','Champiniones',100, 1000,1500,'KG',true);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad) VALUES('imagen','Mermelada de Mora',100, 1000,1500,'KG',true);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad) VALUES('imagen','Oregano',100, 1000,1500,'KG',true);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad) VALUES('imagen','Conserva',100, 1000,1500,'KG',true);
+
+
+INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad,tipo_id) VALUES('imagen','Manzana Verde',100, 1000,1500,'KG',true,1);
+INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad,tipo_id) VALUES('imagen','Manzana Roja',100, 1000,1500,'KG',true,1);
+INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad,tipo_id) VALUES('imagen','Lechuga Escarola',100, 1000,1500,'KG',false,2);
+INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad,tipo_id) VALUES('imagen','Champiniones',100, 1000,1500,'Bandeja',true,6);
+INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad,tipo_id) VALUES('imagen','Mermelada de Mora',100, 1000,1500,'KG',true,3);
+INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad,tipo_id) VALUES('imagen','Oregano',100, 1000,1500,'KG',true,5);
+INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad,tipo_id) VALUES('imagen','Conserva',100, 1000,1500,'KG',true,4);
 
 
 INSERT INTO usuario(nombre,nombre_usuario,email,password) VALUES('admin','admin','admin@admin.com','$2a$10$/RgW9V3nbAemUKs6apisnuKWjVrLbGaKvDIK2XI0SrtKvDZwjCH.W');
@@ -101,3 +89,30 @@ INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(1,1);
 INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(1,2);
 INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(2,2);
 INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(3,3);
+
+
+INSERT INTO cargos(nombre) VALUES ('Repartidor');
+INSERT INTO cargos(nombre) VALUES ('Cajero');
+
+INSERT into empleado(nombre,apellido, telefono,cargo_id) VALUES ('Alberto', 'Carrasco','+56999599344',1);
+INSERT into empleado(nombre,apellido, telefono,cargo_id) VALUES ('Alberto2', 'Carrasco1','+56999599344',2);
+
+iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(2,320,800,"2022-09-07 21:58:09",2);
+Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(3,220,400,"2022-09-07 1:58:09",3);
+iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(4,600,600,"2028-09-07 15:59:09",4);
+Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(5,320,950,"2022-09-07 12:58:09",5);
+
+iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(6,348,80,"2022-09-21 11:59:59",2);
+Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(7,4000,200,"2022-09-21 01:58:12",3);
+iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(8,500,1000,"2022-09-21  05:58:09",4);
+Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(9,1500,200,"2022-09-21  21:58:09",5);
+iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(10,320,1800,"2022-09-07  21:58:09",6);
+
+
+
+iNSERT INTO precio_venta(id, precio, cantidad, fecha, producto_id) VALUES(27,400,0,"2022-12-01 21:58:09",2);
+Insert into precio_venta (id,precio,cantidad,fecha,producto_id)values(28,5000,0,"2022-12-01 21:58:09",3);
+iNSERT INTO precio_venta(id, precio, cantidad, fecha, producto_id) VALUES(29,1500,0,"2022-12-01 21:58:09",4);
+Insert into precio_venta (id,precio,cantidad,fecha,producto_id)values(30,1500,0,"2022-12-01 21:58:09",5);
+iNSERT INTO precio_venta(id, precio, cantidad, fecha, producto_id) VALUES(31,1320,0,"2022-12-01 21:58:09",6);
+

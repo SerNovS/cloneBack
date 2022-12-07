@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tesis.ubb.tesis.models.Producto;
+
+import com.tesis.ubb.tesis.models.TipoProducto;
+
 import com.tesis.ubb.tesis.repository.ProductoRepository;
 
 @Service
@@ -47,6 +50,37 @@ public class ProductoServiceImpl implements ProductoService {
 	public Page<Producto> findAll(Pageable pageable) {
 		return productoRepository.findAll(pageable);
 	}
+
+
+    @Override
+    public List<TipoProducto> findAllTipos() {
+        return productoRepository.findAllTipos();
+    }
+
+    @Override
+	@Transactional
+    public Producto actualizaStock(Long id ,Integer stock){
+        Producto p= productoRepository.findById(id).orElse(null);
+        Integer valor=p.getStock() + stock;
+        p.setStock(valor);
+        return p;
+    }
+
+    @Override
+	@Transactional
+    public Producto actualizaPrecioCompra(Long id ,Integer precioCompra){
+        Producto p= productoRepository.findById(id).orElse(null);
+        p.setUltimoPrecioCompra(precioCompra);
+        return p;
+    }
+
+    @Override
+	@Transactional
+    public Producto actualizaPrecioVenta(Long id ,Integer precioVenta){
+        Producto p= productoRepository.findById(id).orElse(null);
+        p.setUltimoPrecioVenta(precioVenta);
+        return p;
+    }
 
 	
 
