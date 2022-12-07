@@ -199,7 +199,7 @@ public class ProductoController {
     }
 
 
-    @GetMapping("/producto/regiones")
+    @GetMapping("/producto/tipo")
     public List<TipoProducto> listarTipoProductos() {
         return productoService.findAllTipos();
     }
