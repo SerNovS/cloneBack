@@ -2,7 +2,6 @@ INSERT INTO tipos_producto (nombre_tipo) VALUES ('Frutas');
 INSERT INTO tipos_producto (nombre_tipo) VALUES ('Verduras');
 INSERT INTO tipos_producto (nombre_tipo) VALUES ('Mermeladas');
 INSERT INTO tipos_producto (nombre_tipo) VALUES ('Conservas');
-INSERT INTO tipos_producto (nombre_tipo) VALUES ('Condimentos');
 INSERT INTO tipos_producto (nombre_tipo) VALUES ('Otros');
 
 INSERT INTO cliente(nombre, apellido,direccion,email,nombre_empresa,telefono) VALUES('Felipe','Castillo','Calle Falsa 123','fel4ipe.castillo@gmail.com',null,'+56999599344');
@@ -78,7 +77,6 @@ INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultim
 INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad,tipo_id) VALUES('imagen','Conserva',100, 1000,1500,'KG',true,4);
 
 
-
 INSERT INTO usuario(nombre,nombre_usuario,email,password) VALUES('admin','admin','admin@admin.com','$2a$10$/RgW9V3nbAemUKs6apisnuKWjVrLbGaKvDIK2XI0SrtKvDZwjCH.W');
 INSERT INTO usuario(nombre,nombre_usuario,email,password) VALUES('trabajador','trabajador','trabajador@admin.com','$2a$10$/RgW9V3nbAemUKs6apisnuKWjVrLbGaKvDIK2XI0SrtKvDZwjCH.W');
 INSERT INTO usuario(nombre,nombre_usuario,email,password) VALUES('cliente','cliente','cliente@admin.com','$2a$10$/RgW9V3nbAemUKs6apisnuKWjVrLbGaKvDIK2XI0SrtKvDZwjCH.W');
@@ -89,9 +87,9 @@ INSERT INTO rol(rol_nombre) VALUES('ROLE_CLIENTE');
 
 INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(1,1);
 INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(1,2);
-INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(1,3);
 INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(2,2);
 INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(3,3);
+
 
 INSERT INTO cargos(nombre) VALUES ('Repartidor');
 INSERT INTO cargos(nombre) VALUES ('Cajero');
@@ -117,3 +115,4 @@ Insert into precio_venta (id,precio,cantidad,fecha,producto_id)values(28,5000,0,
 iNSERT INTO precio_venta(id, precio, cantidad, fecha, producto_id) VALUES(29,1500,0,"2022-12-01 21:58:09",4);
 Insert into precio_venta (id,precio,cantidad,fecha,producto_id)values(30,1500,0,"2022-12-01 21:58:09",5);
 iNSERT INTO precio_venta(id, precio, cantidad, fecha, producto_id) VALUES(31,1320,0,"2022-12-01 21:58:09",6);
+

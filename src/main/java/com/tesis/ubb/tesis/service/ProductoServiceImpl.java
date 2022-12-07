@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tesis.ubb.tesis.models.Producto;
+
 import com.tesis.ubb.tesis.models.TipoProducto;
+
 import com.tesis.ubb.tesis.repository.ProductoRepository;
 
 @Service
@@ -49,6 +51,7 @@ public class ProductoServiceImpl implements ProductoService {
 		return productoRepository.findAll(pageable);
 	}
 
+
     @Override
     public List<TipoProducto> findAllTipos() {
         return productoRepository.findAllTipos();
@@ -78,6 +81,7 @@ public class ProductoServiceImpl implements ProductoService {
         p.setUltimoPrecioVenta(precioVenta);
         return p;
     }
+
 	
 
 }

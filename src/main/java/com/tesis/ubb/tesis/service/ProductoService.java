@@ -6,7 +6,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.tesis.ubb.tesis.models.Producto;
+
 import com.tesis.ubb.tesis.models.TipoProducto;
+
 
 public interface ProductoService {
 
@@ -20,6 +22,7 @@ public interface ProductoService {
 
     public Producto findById(Long id);
 
+
     public List<TipoProducto> findAllTipos();
 
     public Producto actualizaStock(Long id,Integer stock);
@@ -27,6 +30,6 @@ public interface ProductoService {
     public Producto actualizaPrecioVenta(Long id ,Integer stock);
     
     public Producto actualizaPrecioCompra(Long id ,Integer precioCompra);
-     
+
     
 }
