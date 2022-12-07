@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tesis.ubb.tesis.models.Producto;
 import com.tesis.ubb.tesis.models.TipoProducto;
+import com.tesis.ubb.tesis.models.UnidadMedida;
 import com.tesis.ubb.tesis.repository.ProductoRepository;
 
 @Service
@@ -50,34 +51,23 @@ public class ProductoServiceImpl implements ProductoService {
 	}
 
     @Override
+    @Transactional(readOnly = true)
     public List<TipoProducto> findAllTipos() {
         return productoRepository.findAllTipos();
     }
 
     @Override
-	@Transactional
-    public Producto actualizaStock(Long id ,Integer stock){
-        Producto p= productoRepository.findById(id).orElse(null);
-        Integer valor=p.getStock() + stock;
-        p.setStock(valor);
-        return p;
+    @Transactional(readOnly = true)
+    public List<UnidadMedida> findAllUnidades() {
+        return productoRepository.findAllUnidades();
     }
 
     @Override
-	@Transactional
-    public Producto actualizaPrecioCompra(Long id ,Integer precioCompra){
-        Producto p= productoRepository.findById(id).orElse(null);
-        p.setUltimoPrecioCompra(precioCompra);
-        return p;
+    public List<Producto> findAllTipoById(Long id) {
+        return productoRepository.findAllTipoById(id);
     }
 
-    @Override
-	@Transactional
-    public Producto actualizaPrecioVenta(Long id ,Integer precioVenta){
-        Producto p= productoRepository.findById(id).orElse(null);
-        p.setUltimoPrecioVenta(precioVenta);
-        return p;
-    }
+
 	
 
 }
