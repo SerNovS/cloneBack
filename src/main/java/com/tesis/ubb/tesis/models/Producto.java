@@ -174,9 +174,10 @@ public class Producto implements Serializable {
             return false;
         }
         Producto producto = (Producto) o;
-      && Objects.equals(ultimoPrecioVenta, producto.ultimoPrecioVenta) && visibilidad == producto.visibilidad;
+     
 
-        return Objects.equals(id, producto.id) && Objects.equals(nombreProducto, producto.nombreProducto) && Objects.equals(imagen, producto.imagen) && Objects.equals(stock, producto.stock) && Objects.equals(unidadMedida, producto.unidadMedida) && Objects.equals(ultimoPrecioCompra, producto.ultimoPrecioCompra) && Objects.equals(ultimoPrecioVenta, producto.ultimoPrecioVenta) && visibilidad == producto.visibilidad;
+        return Objects.equals(id, producto.id) && Objects.equals(nombreProducto, producto.nombreProducto) && Objects.equals(imagen, producto.imagen) && Objects.equals(stock, producto.stock) && Objects.equals(unidadMedida, producto.unidadMedida) 
+        && Objects.equals(ultimoPrecioCompra, producto.ultimoPrecioCompra) && Objects.equals(ultimoPrecioVenta, producto.ultimoPrecioVenta) && visibilidad == producto.visibilidad;
 
     }
 

@@ -71,7 +71,7 @@ INSERT INTO cliente(nombre, apellido,direccion,email,nombre_empresa,telefono) VA
 INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad,tipo_id) VALUES('imagen','Manzana Verde',100, 1000,1500,'KG',true,1);
 INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad,tipo_id) VALUES('imagen','Manzana Roja',100, 1000,1500,'KG',true,1);
 INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad,tipo_id) VALUES('imagen','Lechuga Escarola',100, 1000,1500,'KG',false,2);
-INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad,tipo_id) VALUES('imagen','Champiniones',100, 1000,1500,'Bandeja',true,6);
+INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad,tipo_id) VALUES('imagen','Champiniones',100, 1000,1500,'Bandeja',true,5);
 INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad,tipo_id) VALUES('imagen','Mermelada de Mora',100, 1000,1500,'KG',true,3);
 INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad,tipo_id) VALUES('imagen','Oregano',100, 1000,1500,'KG',true,5);
 INSERT INTO producto(imagen, nombre_producto, stock, ultimo_precio_compra, ultimo_precio_venta, unidad_medida, visibilidad,tipo_id) VALUES('imagen','Conserva',100, 1000,1500,'KG',true,4);
@@ -91,11 +91,6 @@ INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(2,2);
 INSERT INTO usuario_rol(usuario_id, rol_id) VALUES(3,3);
 
 
-INSERT INTO cargos(nombre) VALUES ('Repartidor');
-INSERT INTO cargos(nombre) VALUES ('Cajero');
-
-INSERT into empleado(nombre,apellido, telefono,cargo_id) VALUES ('Alberto', 'Carrasco','+56999599344',1);
-INSERT into empleado(nombre,apellido, telefono,cargo_id) VALUES ('Alberto2', 'Carrasco1','+56999599344',2);
 
 iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(2,320,800,"2022-09-07 21:58:09",2);
 Insert into precio_compra (id,precio,cantidad,fecha,producto_id)values(3,220,400,"2022-09-07 1:58:09",3);
@@ -113,6 +108,6 @@ iNSERT INTO precio_compra(id, precio, cantidad, fecha, producto_id) VALUES(10,32
 iNSERT INTO precio_venta(id, precio, cantidad, fecha, producto_id) VALUES(27,400,0,"2022-12-01 21:58:09",2);
 Insert into precio_venta (id,precio,cantidad,fecha,producto_id)values(28,5000,0,"2022-12-01 21:58:09",3);
 iNSERT INTO precio_venta(id, precio, cantidad, fecha, producto_id) VALUES(29,1500,0,"2022-12-01 21:58:09",4);
-Insert into precio_venta (id,precio,cantidad,fecha,producto_id)values(30,1500,0,"2022-12-01 21:58:09",5);
+Insert into precio_venta (id,precio,cantidad,fecha,producto_id)values(30,1550,0,"2022-12-01 21:58:09",5);
 iNSERT INTO precio_venta(id, precio, cantidad, fecha, producto_id) VALUES(31,1320,0,"2022-12-01 21:58:09",6);
 
