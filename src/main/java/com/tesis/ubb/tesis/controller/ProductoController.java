@@ -25,7 +25,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,6 +41,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.tesis.ubb.tesis.models.Producto;
 import com.tesis.ubb.tesis.models.TipoProducto;
+import com.tesis.ubb.tesis.models.UnidadMedida;
 import com.tesis.ubb.tesis.service.ProductoService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
@@ -174,16 +174,14 @@ public class ProductoController {
         try {
 
             Producto producto = productoService.findById(id);
-            String nombreImagenAnterior = producto.getImagen();
-
-            if (nombreImagenAnterior != null && nombreImagenAnterior.length() > 0) {
-                Path rutaImagenAnterior = Paths.get("uploads").resolve(nombreImagenAnterior).toAbsolutePath();
-                File archivoFotooAnterior = rutaImagenAnterior.toFile();
-                if (archivoFotooAnterior.exists() && archivoFotooAnterior.canRead()) {
-                    archivoFotooAnterior.delete();
+            String nombreFotoAnterior = producto.getImagen();
+            if (nombreFotoAnterior != null && nombreFotoAnterior.length() > 0) {
+                Path rutaFotoAnterior = Paths.get("uploads").resolve(nombreFotoAnterior).toAbsolutePath();
+                File archivoFotoAnterio = rutaFotoAnterior.toFile();
+                if (archivoFotoAnterio.exists() && archivoFotoAnterio.canRead()) {
+                    archivoFotoAnterio.delete();
                 }
             }
-
             productoService.delete(id);
         } catch (DataAccessException e) {
             response.put("mensaje", "Error al eliminar al producto");
@@ -195,67 +193,75 @@ public class ProductoController {
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/producto/regiones")
+    @GetMapping("/producto/tipo")
     public List<TipoProducto> listarTipoProductos() {
         return productoService.findAllTipos();
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_TRABAJADOR')")
-    @PutMapping("/productostock/")
-    public ResponseEntity<?> StockUpdate(@Valid @RequestBody Producto producto) {
+    @GetMapping("/producto/unidad")
+    public List<UnidadMedida> listarUnidadMedida() {
+        return productoService.findAllUnidades();
+    }
 
-        Producto productoActual = productoService.findById(producto.getId());
+    @GetMapping("/producto/tipo/{id}")
+    public List<Producto> listarProductosByTipoId(@PathVariable Long id) {
+        return productoService.findAllTipoById(id);
+    }
 
+    @PostMapping("producto/upload")
+    public ResponseEntity<?> upload(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long id) {
         Map<String, Object> response = new HashMap<>();
+        Producto producto = productoService.findById(id);
 
-        if (productoActual == null) {
-            response.put("mensaje", "El producto ID: ".concat(producto.getId().toString().concat(" no existe en la base de datos")));
-            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+        if (!archivo.isEmpty()) {
+            String nombreArchivo = UUID.randomUUID().toString() + "_" + archivo.getOriginalFilename();
+            Path rutaArchivo = Paths.get("uploads").resolve(nombreArchivo).toAbsolutePath();
+            log.info(rutaArchivo.toString());
+            try {
+                Files.copy(archivo.getInputStream(), rutaArchivo);
+            } catch (IOException e) {
+
+                response.put("mensaje", "Error al subir la imagen: " + nombreArchivo);
+                response.put("error", e.getMessage().concat(": ").concat(e.getCause().getMessage()));
+                return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+            String nombreFotoAnterior = producto.getImagen();
+            if (nombreFotoAnterior != null && nombreFotoAnterior.length() > 0) {
+                Path rutaFotoAnterior = Paths.get("uploads").resolve(nombreFotoAnterior).toAbsolutePath();
+                File archivoFotoAnterio = rutaFotoAnterior.toFile();
+                if (archivoFotoAnterio.exists() && archivoFotoAnterio.canRead()) {
+                    archivoFotoAnterio.delete();
+                }
+            }
+            producto.setImagen(nombreArchivo);
+            productoService.save(producto);
+
+            response.put("producto", producto);
+            response.put("mensaje", "Has subido correctamente la imagen: " + nombreArchivo);
         }
 
-        try {
-            productoService.actualizaStock(productoActual.getId(),producto.getStock());
-        } catch (DataAccessException e) {
-            response.put("mensaje", "Error al actualizar el producto");
-            response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        response.put("", "El producto ha sido actualizado con éxito");
-        response.put("Producto", productoActual);
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_TRABAJADOR')")
-    @PutMapping("/productoPrecioVenta/")
-    public ResponseEntity<?> PrecioVentaUpdate(@Valid @RequestBody Producto producto) {
+    @GetMapping("/uploads/img/{nombreFoto:.+}")
+    public ResponseEntity<Resource> verFoto(@PathVariable String nombreFoto) {
 
-        Producto productoActual = productoService.findById(producto.getId());
-
-        Map<String, Object> response = new HashMap<>();
-
-        Producto NoMenoACOmpra=productoService.findById(producto.getId());
-
-        if(NoMenoACOmpra.getUltimoPrecioCompra()<=producto.getUltimoPrecioVenta()){
-            response.put("mensaje", "Error al registrar un nuevo precio de venta, el precio de venta debe ser mayor al precio de compra.");
-            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        if (productoActual == null) {
-            response.put("mensaje", "El producto ID: ".concat(producto.getId().toString().concat(" no existe en la base de datos")));
-            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-        }
+        Path rutaArchivo = Paths.get("uploads").resolve(nombreFoto).toAbsolutePath();
+        log.info(rutaArchivo.toString());
+        Resource recurso = null;
         try {
-            productoService.actualizaPrecioVenta(productoActual.getId(),producto.getUltimoPrecioVenta());
-        } catch (DataAccessException e) {
-            response.put("mensaje", "Error al actualizar el producto");
-            response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            recurso = new UrlResource(rutaArchivo.toUri());
+        } catch (MalformedURLException e) {
+
+            e.printStackTrace();
         }
 
-        response.put("", "El producto ha sido actualizado con éxito");
-        response.put("Producto", productoActual);
-        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+        if (!recurso.exists() && !recurso.isReadable()) {
+            throw new RuntimeException("Error, no se pudo cargar la imagen: " + nombreFoto);
+        }
+        HttpHeaders cabecera = new HttpHeaders();
+        cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"");
+
+        return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
     }
-    
 }
