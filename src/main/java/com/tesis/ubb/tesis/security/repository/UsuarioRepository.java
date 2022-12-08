@@ -10,8 +10,11 @@ import com.tesis.ubb.tesis.security.models.Usuario;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
-
     Optional<Usuario> findByNombreUsuario(String nombreUsuario);
+
+    Optional<Usuario> findByNombreUsuarioOrEmail(String nombreUsuario, String email);
+
+    Optional<Usuario> findByTokenPasword(String tokenPasword);
 
     boolean existsByNombreUsuario(String nombreUsuario);
 
