@@ -45,7 +45,6 @@ import com.tesis.ubb.tesis.models.Producto;
 
 import com.tesis.ubb.tesis.models.TipoProducto;
 
-
 import com.tesis.ubb.tesis.service.ProductoService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
@@ -177,13 +176,13 @@ public class ProductoController {
         try {
 
             Producto producto = productoService.findById(id);
-            String nombreImagenAnterior = producto.getImagen();
+            String nombreFotoAnterior = producto.getImagen();
 
-            if (nombreImagenAnterior != null && nombreImagenAnterior.length() > 0) {
-                Path rutaImagenAnterior = Paths.get("uploads").resolve(nombreImagenAnterior).toAbsolutePath();
-                File archivoFotooAnterior = rutaImagenAnterior.toFile();
-                if (archivoFotooAnterior.exists() && archivoFotooAnterior.canRead()) {
-                    archivoFotooAnterior.delete();
+            if (nombreFotoAnterior != null && nombreFotoAnterior.length() > 0) {
+                Path rutaFotoAnterior = Paths.get("uploads").resolve(nombreFotoAnterior).toAbsolutePath();
+                File archivoFotoAnterio = rutaFotoAnterior.toFile();
+                if (archivoFotoAnterio.exists() && archivoFotoAnterio.canRead()) {
+                    archivoFotoAnterio.delete();
                 }
             }
 
@@ -198,11 +197,12 @@ public class ProductoController {
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
     }
 
-
     @GetMapping("/producto/tipo")
     public List<TipoProducto> listarTipoProductos() {
         return productoService.findAllTipos();
     }
+
+    
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_TRABAJADOR')")
     @PutMapping("/productostock/")
@@ -213,12 +213,13 @@ public class ProductoController {
         Map<String, Object> response = new HashMap<>();
 
         if (productoActual == null) {
-            response.put("mensaje", "El producto ID: ".concat(producto.getId().toString().concat(" no existe en la base de datos")));
+            response.put("mensaje",
+                    "El producto ID: ".concat(producto.getId().toString().concat(" no existe en la base de datos")));
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
         }
 
         try {
-            productoService.actualizaStock(productoActual.getId(),producto.getStock());
+            productoService.actualizaStock(productoActual.getId(), producto.getStock());
         } catch (DataAccessException e) {
             response.put("mensaje", "Error al actualizar el producto");
             response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -238,19 +239,21 @@ public class ProductoController {
 
         Map<String, Object> response = new HashMap<>();
 
-        Producto NoMenoACOmpra=productoService.findById(producto.getId());
+        Producto NoMenoACOmpra = productoService.findById(producto.getId());
 
-        if(NoMenoACOmpra.getUltimoPrecioCompra()<=producto.getUltimoPrecioVenta()){
-            response.put("mensaje", "Error al registrar un nuevo precio de venta, el precio de venta debe ser mayor al precio de compra.");
+        if (NoMenoACOmpra.getUltimoPrecioCompra() <= producto.getUltimoPrecioVenta()) {
+            response.put("mensaje",
+                    "Error al registrar un nuevo precio de venta, el precio de venta debe ser mayor al precio de compra.");
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         if (productoActual == null) {
-            response.put("mensaje", "El producto ID: ".concat(producto.getId().toString().concat(" no existe en la base de datos")));
+            response.put("mensaje",
+                    "El producto ID: ".concat(producto.getId().toString().concat(" no existe en la base de datos")));
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
         }
         try {
-            productoService.actualizaPrecioVenta(productoActual.getId(),producto.getUltimoPrecioVenta());
+            productoService.actualizaPrecioVenta(productoActual.getId(), producto.getUltimoPrecioVenta());
         } catch (DataAccessException e) {
             response.put("mensaje", "Error al actualizar el producto");
             response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -261,69 +264,76 @@ public class ProductoController {
         response.put("Producto", productoActual);
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
     }
-    
 
     // @PostMapping("/producto/upload")
-    // public ResponseEntity<?> upload(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long id) {
+    // public ResponseEntity<?> upload(@RequestParam("archivo") MultipartFile
+    // archivo, @RequestParam("id") Long id) {
 
-    //     Map<String, Object> response = new HashMap<>();
+    // Map<String, Object> response = new HashMap<>();
 
-    //     Producto producto = productoService.findById(id);
+    // Producto producto = productoService.findById(id);
 
-    //     if (!archivo.isEmpty()) {
+    // if (!archivo.isEmpty()) {
 
-    //         String nombreArchivo = UUID.randomUUID().toString() + "_" + archivo.getOriginalFilename();
-    //         Path rutaArchivo = Paths.get("uploads").resolve(nombreArchivo).toAbsolutePath();
-    //         try {
-    //             Files.copy(archivo.getInputStream(), rutaArchivo);
-    //         } catch (IOException e) {
+    // String nombreArchivo = UUID.randomUUID().toString() + "_" +
+    // archivo.getOriginalFilename();
+    // Path rutaArchivo =
+    // Paths.get("uploads").resolve(nombreArchivo).toAbsolutePath();
+    // try {
+    // Files.copy(archivo.getInputStream(), rutaArchivo);
+    // } catch (IOException e) {
 
-    //             response.put("mensaje", "Error al subir la imagen");
-    //             response.put("error", e.getMessage().concat(": ").concat(e.getCause().getMessage()));
+    // response.put("mensaje", "Error al subir la imagen");
+    // response.put("error", e.getMessage().concat(":
+    // ").concat(e.getCause().getMessage()));
 
-    //             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-    //         }
+    // return new ResponseEntity<Map<String, Object>>(response,
+    // HttpStatus.INTERNAL_SERVER_ERROR);
+    // }
 
-    //         String nombreImagenAnterior = producto.getImagen();
+    // String nombreImagenAnterior = producto.getImagen();
 
-    //         if (nombreImagenAnterior != null && nombreImagenAnterior.length() > 0) {
-    //             Path rutaImagenAnterior = Paths.get("uploads").resolve(nombreImagenAnterior).toAbsolutePath();
-    //             File archivoFotooAnterior = rutaImagenAnterior.toFile();
-    //             if (archivoFotooAnterior.exists() && archivoFotooAnterior.canRead()) {
-    //                 archivoFotooAnterior.delete();
-    //             }
-    //         }
+    // if (nombreImagenAnterior != null && nombreImagenAnterior.length() > 0) {
+    // Path rutaImagenAnterior =
+    // Paths.get("uploads").resolve(nombreImagenAnterior).toAbsolutePath();
+    // File archivoFotooAnterior = rutaImagenAnterior.toFile();
+    // if (archivoFotooAnterior.exists() && archivoFotooAnterior.canRead()) {
+    // archivoFotooAnterior.delete();
+    // }
+    // }
 
-    //         producto.setImagen(nombreArchivo);
+    // producto.setImagen(nombreArchivo);
 
-    //         productoService.save(producto);
-    //         response.put("producto", producto);
-    //         response.put("mensaje", "Has subido correctamente la imagen");
-    //     }
+    // productoService.save(producto);
+    // response.put("producto", producto);
+    // response.put("mensaje", "Has subido correctamente la imagen");
+    // }
 
-    //     return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+    // return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
     // }
     // @GetMapping("/uploads/img/{nombreFoto:.+}")
-	// public ResponseEntity<Resource> verFoto(@PathVariable String nombreFoto){
-		
-	// 	Path rutaArchivo = Paths.get("uploads").resolve(nombreFoto).toAbsolutePath();
-	// 	log.info(rutaArchivo.toString());
-		
-	// 	Resource recurso = null;
-		
-	// 	try {
-	// 		recurso = new UrlResource(rutaArchivo.toUri());
-	// 	} catch (MalformedURLException e) {
-	// 		e.printStackTrace();
-	// 	}
-		
-	// 	if(!recurso.exists() && !recurso.isReadable()) {
-	// 		throw new RuntimeException("Error no se pudo cargar la imagen: " + nombreFoto);
-	// 	}
-	// 	HttpHeaders cabecera = new HttpHeaders();
-	// 	cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"");
-		
-	// 	return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
-	// }
+    // public ResponseEntity<Resource> verFoto(@PathVariable String nombreFoto){
+
+    // Path rutaArchivo = Paths.get("uploads").resolve(nombreFoto).toAbsolutePath();
+    // log.info(rutaArchivo.toString());
+
+    // Resource recurso = null;
+
+    // try {
+    // recurso = new UrlResource(rutaArchivo.toUri());
+    // } catch (MalformedURLException e) {
+    // e.printStackTrace();
+    // }
+
+    // if(!recurso.exists() && !recurso.isReadable()) {
+    // throw new RuntimeException("Error no se pudo cargar la imagen: " +
+    // nombreFoto);
+    // }
+    // HttpHeaders cabecera = new HttpHeaders();
+    // cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" +
+    // recurso.getFilename() + "\"");
+
+    // return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
+    // }
 
 }
